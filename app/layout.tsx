@@ -8,8 +8,6 @@ import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 
-import { SiteFooter } from "@/components/site-footer"
-
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -48,17 +46,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="min-h-screen">
               <SiteHeader />
-              <div className="justify-center items-center">
-                {children}
-              </div>
-            </div>
-            <SiteFooter className=" fixed border-t bottom-0 inset-x-0 sm:static" />
             <TailwindIndicator />
-            
           </ThemeProvider>
         </body>
       </html>
     </>
   )
 }
-

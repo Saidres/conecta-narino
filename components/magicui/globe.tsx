@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import createGlobe, { COBEOptions } from "cobe";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSpring } from "react-spring";
 
 const GLOBE_CONFIG: COBEOptions = {
@@ -25,17 +25,23 @@ const GLOBE_CONFIG: COBEOptions = {
     { location: [0.9501, -77.1438], size: 0.05 },  // Tumaco
     { location: [1.0235, -77.2231], size: 0.05 },  // La Unión
     { location: [1.3399, -77.3007], size: 0.05 },  // La Florida
+    { location: [40.7128, -74.0060], size: 0.1 },  // Nueva York
+    { location: [48.8566, 2.3522], size: 0.1 },  // París
+    { location: [34.0522, -118.2437], size: 0.1 },  // Los Ángeles
+    { location: [35.6895, 139.6917], size: 0.1 },  // Tokio
+    { location: [-33.8688, 151.2093], size: 0.1 },  // Sídney
+    // Nuevas ubicaciones agregadas
+    { location: [51.5074, -0.1278], size: 0.1 },  // Londres
+    { location: [39.9042, 116.4074], size: 0.1 },  // Pekín
+    { location: [55.7558, 37.6173], size: 0.1 },  // Moscú
+    { location: [40.7306, -73.9352], size: 0.1 },  // Brooklyn (Nueva York)
+    { location: [19.4326, -99.1332], size: 0.1 },  // Ciudad de México
+    { location: [-23.5505, -46.6333], size: 0.1 },  // São Paulo
+    { location: [48.8566, 2.3522], size: 0.1 },  // París
+    { location: [41.9028, 12.4964], size: 0.1 },  // Roma
   ],
-  lines: [
-    // Líneas de flechas desde diferentes partes del mundo hacia Nariño
-    { start: [48.8566, 2.3522], end: [1.2136, -77.2817] },  // París, Francia a Pasto
-    { start: [40.7128, -74.0060], end: [1.2136, -77.2817] },  // Nueva York, USA a Pasto
-    { start: [51.5074, -0.1278], end: [1.2136, -77.2817] },  // Londres, Reino Unido a Pasto
-    { start: [35.6895, 139.6917], end: [1.2136, -77.2817] },  // Tokio, Japón a Pasto
-    { start: [39.9042, 116.4074], end: [1.2136, -77.2817] },  // Pekín, China a Pasto
-  ],
-  // Adicional: Opcionalmente puedes usar markers para hacer más visibles las ubicaciones
 };
+
 
 export default function Globe({
   className,
@@ -44,10 +50,10 @@ export default function Globe({
   className?: string;
   config?: COBEOptions;
 }) {
+  const [width, setWidth] = useState(0);
   let phi = 0;
-  let width = 0;
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pointerInteracting = useRef(null);
+  const pointerInteracting = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
   const [{ r }, api] = useSpring(() => ({
     r: 0,
@@ -60,7 +66,7 @@ export default function Globe({
   }));
 
   // Limitar el movimiento manual del globo
-  const updatePointerInteraction = (value: any) => {
+  const updatePointerInteraction = (value: number) => {
     pointerInteracting.current = value;
     if (pointerInteracting.current !== null) {
       canvasRef.current!.style.cursor = "grabbing";
@@ -69,11 +75,11 @@ export default function Globe({
     }
   };
 
-  const updateMovement = (clientX: any, clientY: any) => {
-    if (pointerInteracting.current !== null) {
+  const updateMovement = (clientX: number, clientY: number) => {
+    if (pointerInteracting.current !== null && canvasRef.current) {
       const deltaX = clientX - pointerInteracting.current;
       const deltaY = clientY - pointerInteractionMovement.current;
-      
+
       // Restringir el movimiento a la región de Nariño
       const maxPhi = 0.6;  // Limitar la latitud
       const minPhi = 0.1;  // Ajustar límite inferior
@@ -83,7 +89,7 @@ export default function Globe({
       phi += deltaY / 500;  // Ajuste de latitud
       phi = Math.max(minPhi, Math.min(maxPhi, phi));  // Restringir latitud
 
-      let theta = r.get();
+      let theta = r.get() || 0;  // Verifica que r.get() no sea undefined
       theta += deltaX / 500;  // Ajuste longitud
       theta = Math.max(minTheta, Math.min(maxTheta, theta));  // Restringir longitud
 
@@ -98,12 +104,12 @@ export default function Globe({
       state.width = width * 2;
       state.height = width * 2;
     },
-    [pointerInteracting, phi, r],
+    [pointerInteracting, phi, r, width],
   );
 
   const onResize = () => {
     if (canvasRef.current) {
-      width = canvasRef.current.offsetWidth;
+      setWidth(canvasRef.current.offsetWidth);
     }
   };
 
@@ -120,7 +126,7 @@ export default function Globe({
 
     setTimeout(() => (canvasRef.current!.style.opacity = "1"));
     return () => globe.destroy();
-  }, []);
+  }, [width, onRender, config]);
 
   return (
     <div
