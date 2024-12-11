@@ -1,3 +1,4 @@
+
 "use client";
 import Link from "next/link"
 
@@ -18,7 +19,6 @@ export default function IndexPage() {
         )}
       >
         
-      
         </div>
         <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-pixel font-bold leading-tight tracking-wider text-accent-foreground text-center z-10">
          Retro-inspired UI Template to feel <p className="underline decoration-gray-400 decoration-4 underline-offset-2 mt-0 lg:mt-3 md:mt-0 sm:mt-0 z-10">Nostalgia 🧩</p>
