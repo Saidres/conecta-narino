@@ -9,9 +9,9 @@ import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 
-import AnimatedListDemo from "./animatedlist-demo/page"
-import GlobePage from "./globe-section/page"
-import GameCard from "./game-card/page"
+import AnimatedListDemo from "./landing/animatedlist-demo/page"
+import GlobePage from "./landing/globe-section/page"
+import GameCard from "./landing/game-card/page"
 import { SiteFooter } from "@/components/site-footer"
 
 export const metadata: Metadata = {
