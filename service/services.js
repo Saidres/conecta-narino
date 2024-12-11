@@ -1,4 +1,5 @@
-import { db, collection, addDoc, doc, getDoc, updateDoc, deleteDoc, getDocs, query, where } from "../firebase";
+import { db } from "../firebase";
+import { collection, addDoc, doc, getDoc, updateDoc, deleteDoc, getDocs } from "firebase/firestore";
 
 // CRUD Service con manejo de errores y relaciones entre colecciones
 const CrudService = (collectionName) => ({
@@ -30,18 +31,13 @@ const CrudService = (collectionName) => ({
   },
 
   // Leer todos los documentos con un filtro opcional
-  async readAll(filters = []) {
+  async readAll() {
     try {
-      const colRef = collection(db, collectionName);
-      let q = query(colRef);
-      filters.forEach(({ field, operator, value }) => {
-        q = query(q, where(field, operator, value));
-      });
-      const querySnapshot = await getDocs(q);
+      const querySnapshot = await getDocs(collection(db, collectionName));
       return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
-      console.error(`Error leyendo documentos en ${collectionName} con filtros ${JSON.stringify(filters)}:`, error);
-      throw new Error("No se pudieron leer los documentos.");
+      console.error(`Error leyendo todos los documentos en ${collectionName}:`, error);
+      throw new Error("No se pudo leer los documentos.");
     }
   },
 
@@ -72,51 +68,9 @@ const CrudService = (collectionName) => ({
 
 // Servicios específicos para cada colección
 export const ProductorService = CrudService("productores");
-export const ProductoService = {
-  ...CrudService("productos"),
-  async create(data) {
-    try {
-      const productId = await CrudService("productos").create(data);
-      if (data.ProductorID) {
-        const productorRef = doc(db, "productores", data.ProductorID);
-        const productorSnap = await getDoc(productorRef);
-        if (productorSnap.exists()) {
-          const productorData = productorSnap.data();
-          await updateDoc(productorRef, {
-            Productos: [...(productorData.Productos || []), productId],
-          });
-        }
-      }
-      return productId;
-    } catch (error) {
-      console.error("Error creando producto con relación a Productor:", error);
-      throw new Error("No se pudo crear el producto.");
-    }
-  },
-};
+export const ProductoService = CrudService("productos");
 
-export const ActividadService = {
-  ...CrudService("actividades"),
-  async create(data) {
-    try {
-      const actividadId = await CrudService("actividades").create(data);
-      if (data.ProductorID) {
-        const productorRef = doc(db, "productores", data.ProductorID);
-        const productorSnap = await getDoc(productorRef);
-        if (productorSnap.exists()) {
-          const productorData = productorSnap.data();
-          await updateDoc(productorRef, {
-            Actividades: [...(productorData.Actividades || []), actividadId],
-          });
-        }
-      }
-      return actividadId;
-    } catch (error) {
-      console.error("Error creando actividad con relación a Productor:", error);
-      throw new Error("No se pudo crear la actividad.");
-    }
-  },
-};
+export const ActividadService = CrudService("actividades");
 
 export const AgenteTuristicoService = CrudService("agentesTuristicos");
 export const PropuestaService = CrudService("propuestas");
