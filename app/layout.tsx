@@ -44,8 +44,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="min-h-screen">
+            <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
+              <div className="flex-1 mx-auto justify-center items-center">
+                {/* Renderiza solo el contenido de children */}
+                {children}
+              </div>
+            </div>
             <TailwindIndicator />
           </ThemeProvider>
         </body>
