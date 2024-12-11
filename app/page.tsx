@@ -6,9 +6,12 @@ import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
 import RetroGrid from "@/components/magicui/retro-grid"
 import { cn } from "@/lib/utils";
+import { useRouter } from 'next/navigation'
 // import { NostalgiaPage } from "./nostalgia-section/page";
 
 export default function IndexPage() {
+  const router = useRouter();
+
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10 mx-auto justify-center mt-20">
       
@@ -21,9 +24,9 @@ export default function IndexPage() {
         
         </div>
         <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-pixel font-bold leading-tight tracking-wider text-accent-foreground text-center z-10">
-         Retro-inspired UI Template to feel <p className="underline decoration-gray-400 decoration-4 underline-offset-2 mt-0 lg:mt-3 md:mt-0 sm:mt-0 z-10">Nostalgia 🧩</p>
+          Retro-inspired UI Template to feel <p className="underline decoration-gray-400 decoration-4 underline-offset-2 mt-0 lg:mt-3 md:mt-0 sm:mt-0 z-10">Nostalgia 🧩</p>
         </h1>
-        <p className="max-w-[700px] text-lg sm:text-xl text-accent-foreground text-center z-10">
+        <p onClick={() => router.push("/login")} className="max-w-[700px] text-lg sm:text-xl text-accent-foreground text-center z-10">
           Step into a world of retro, where simplicity and nostalgia blend to create a timeless experience.
         
         </p>
@@ -33,8 +36,7 @@ export default function IndexPage() {
       <RetroGrid className="z-0 absolute inset-0 max-w-[1000]" /> 
       <div className="flex gap-4 justify-center">
         <Link
-          href={siteConfig.links.docs}
-          target="_blank"
+          href="/login"
           rel="noreferrer"
           className={buttonVariants()}
         >
