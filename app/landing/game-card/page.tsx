@@ -13,89 +13,40 @@ export default function ActivityCard() {
       <MagicContainer
         className="mt-20 flex h-auto w-full flex-wrap justify-center gap-10 px-14 pb-16 md:mt-28 lg:mt-28"
       >
-        <MagicCard 
-          className="flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-lg"
-          style={{
-            backgroundImage: "url('/path-to-image/volcan-galeras.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200">
-            Volcán Galeras
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.6),rgba(255,255,255,0))]" />
-        </MagicCard>
-
-        <MagicCard 
-          className="flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-lg"
-          style={{
-            backgroundImage: "url('/path-to-image/laguna-la-cocha.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200">
-            Laguna de La Cocha
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.6),rgba(255,255,255,0))]" />
-        </MagicCard>
-
-        <MagicCard 
-          className="flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-lg"
-          style={{
-            backgroundImage: "url('/path-to-image/santuario-las-lajas.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200">
-            Santuario de las Lajas
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.6),rgba(255,255,255,0))]" />
-        </MagicCard>
-
-        <MagicCard 
-          className="flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-lg"
-          style={{
-            backgroundImage: "url('/path-to-image/parque-los-nevados.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200">
-            Parque Nacional Natural de Los Nevados
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.6),rgba(255,255,255,0))]" />
-        </MagicCard>
-
-        <MagicCard 
-          className="flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-lg"
-          style={{
-            backgroundImage: "url('/path-to-image/cumbal.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200">
-            Cumbal
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.6),rgba(255,255,255,0))]" />
-        </MagicCard>
-
-        <MagicCard 
-          className="flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-lg"
-          style={{
-            backgroundImage: "url('/path-to-image/ipiales.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200">
-            Ipiales
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.6),rgba(255,255,255,0))]" />
-        </MagicCard>
+        {/** Cr 28 _#17 39 centro piso edifisio tabarue **/}
+        {[{
+          title: "Serendismo",
+          image: "/images/volcan-galeras.jpg"
+        }, {
+          title: "Cultura",
+          image: "/images/laguna.jpeg"
+        }, {
+          title: "Gastronomia",
+          image: "/images/papa.jpeg"
+        }, {
+          title: "Artesanía",
+          image: "/images/nevados.jpeg"
+        }, {
+          title: "Relajación",
+          image: "/images/cumbal.jpg"
+        }, {
+          title: "Festividades",
+          image: "/images/ipiales.jpeg"
+        }].map(({ title, image }, index) => (
+          <MagicCard 
+            key={index}
+            className="relative flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden shadow-lg"
+          >
+            <div
+              className="absolute inset-0 h-full w-full bg-cover bg-center"
+              style={{ backgroundImage: `url('${image}')` }}
+            />
+            <div className="absolute inset-0 h-full w-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.4),rgba(255,255,255,0))]" />
+            <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200 relative">
+              {title}
+            </p>
+          </MagicCard>
+        ))}
       </MagicContainer>
     </div>
   );
