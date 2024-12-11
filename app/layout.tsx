@@ -46,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="flex-1 mx-auto justify-center items-center">
+              <div className="flex-1 justify-center items-center">
                 {/* Renderiza solo el contenido de children */}
                 {children}
               </div>
