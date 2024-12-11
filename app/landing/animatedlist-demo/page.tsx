@@ -13,35 +13,35 @@ interface Item {
 
 let notifications = [
   {
-    name: "battleman entered into game",
-    description: "Retro",
+    name: "Carlos comentó",
+    description: "¡Increíble vista de Pasto!",
     time: "15m ago",
-
-    icon: "💸",
+    icon: "💬",
     color: "#00C9A7",
   },
   {
-    name: "battleman won 20 points",
-    description: "Retro",
+    name: "Laura comentó",
+    description: "¡Increíble la excursion de la Union!",
     time: "10m ago",
-    icon: "👤",
+    icon: "💬",
     color: "#FFB800",
   },
   {
-    name: "Battleman exited",
-    description: "Retro",
+    name: "Juan comentó",
+    description: "Muy delicioso las cuajada del Tambo.",
     time: "5m ago",
     icon: "💬",
     color: "#FF3D71",
   },
   {
-    name: "Battleman has received a new req",
-    description: "Retro",
+    name: "Sofia comentó",
+    description: "¿Puedo tomar un tour por los alrededores?",
     time: "2m ago",
-    icon: "🗞️",
+    icon: "💬",
     color: "#1E86FF",
   },
 ];
+
 
 notifications = Array.from({ length: 10 }, () => notifications).flat();
 
