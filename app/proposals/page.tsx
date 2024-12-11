@@ -3,7 +3,7 @@ import * as React from "react";
 export default function proposals() {
   return (
     <section className="grid grid-cols-1 gap-4 pt-20 px-4 sm:px-9">
-      <article className="border-2 border-spring-green-500 rounded-md p-4 flex flex-col sm:flex-row justify-between items-center bg-white shadow-md">
+      <article className="border-2 border-spring-green-500 bg-spring-green-50 rounded-md p-4 flex flex-col sm:flex-row justify-between items-center bg-white shadow-md">
         <div className="flex flex-col space-y-2 sm:space-y-4">
           <h1 className="text-lg font-bold text-gray-800">Título</h1>
           <div className="flex">
