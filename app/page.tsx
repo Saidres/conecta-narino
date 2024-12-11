@@ -1,36 +1,28 @@
-
 "use client";
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
-import RetroGrid from "@/components/magicui/retro-grid"
-import { cn } from "@/lib/utils";
-// import { NostalgiaPage } from "./nostalgia-section/page";
+
+import AnimatedListDemo from "./landing/animatedlist-demo/page"
+import GlobePage from "./landing/globe-section/page"
+import GameCard from "./landing/game-card/page"
+
 
 export default function IndexPage() {
   return (
-    <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10 mx-auto justify-center mt-20">
+    <section className="container justify-items-center grid items-center gap-6 pb-8 pt-6 md:py-10 mx-auto justify-center mt-20">
       
       <div className="flex max-w-[980px] flex-col items-center gap-6 retro-theme relative">
-      <div
-        className={cn(
-          "group rounded-full border border-gray-200 bg-gray-200 text-sm transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 z-10",
-        )}
-      >
-        
-        </div>
         <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-pixel font-bold leading-tight tracking-wider text-accent-foreground text-center z-10">
-         Retro-inspired UI Template to feel <p className="underline decoration-gray-400 decoration-4 underline-offset-2 mt-0 lg:mt-3 md:mt-0 sm:mt-0 z-10">Nostalgia 🧩</p>
+         Agroturismo en Colombia: Vive la naturaleza y la cultura local
         </h1>
         <p className="max-w-[700px] text-lg sm:text-xl text-accent-foreground text-center z-10">
-          Step into a world of retro, where simplicity and nostalgia blend to create a timeless experience.
-        
+          Descubre la magia de los paisajes colombianos mientras exploras sus fincas y tradiciones, una experiencia única de agroturismo.
         </p>
       
-      
       </div>
-      <RetroGrid className="z-0 absolute inset-0 max-w-[1000]" /> 
+      
       <div className="flex gap-4 justify-center">
         <Link
           href={siteConfig.links.docs}
@@ -38,19 +30,24 @@ export default function IndexPage() {
           rel="noreferrer"
           className={buttonVariants()}
         >
-          Documentation
-        </Link>
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href={siteConfig.links.github}
-          className={buttonVariants({ variant: "outline" })}
-        >
-          GitHub
+          Aprende más sobre el Agroturismo
         </Link>
       </div>
+
+      {/* Componentes adicionales fuera del children */}
+      <div className="pt-20 flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-y-0 lg:space-x-8">
+          {/*<GlobePage />*/}
+          <AnimatedListDemo />
+          </div>
+      <div className="pt-20 flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-y-0 lg:space-x-8">
+      <GameCard />
+
+          </div>
+      
+      
     
     </section>
     
   )
 }
+

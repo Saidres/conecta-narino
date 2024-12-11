@@ -30,7 +30,7 @@ const CrudService = (collectionName) => ({
     }
   },
 
-  // Leer todos los documentos con un filtro opcional
+  // Leer todos los documentos
   async readAll() {
     try {
       const querySnapshot = await getDocs(collection(db, collectionName));
