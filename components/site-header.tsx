@@ -1,4 +1,6 @@
-import Link from "next/link"
+'use client'
+
+import {loadData} from "../test/data";
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
@@ -13,10 +15,8 @@ export function SiteHeader() {
         <MainNav items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-1">
-            <Link
-              href={''}
-              target="_blank"
-              rel="noreferrer"
+            <button
+            onClick={loadData}
             >
               <div
                 className={buttonVariants({
@@ -25,9 +25,9 @@ export function SiteHeader() {
                 })}
               >
                 <Icons.menu className="h-5 w-5 fill-current" />
-                <span className="sr-only">Twitter</span>
+                <span className="sr-only">Menu</span>
               </div>
-            </Link>
+            </button>
           </nav>
         </div>
       </div>
