@@ -39,7 +39,7 @@ export default function ProposalsPage() {
   }, []);
 
   return (
-    <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10 mx-auto mt-20">
+    <section className="container justify-items-center grid items-center gap-6 pb-8 pt-6 md:py-10 mx-auto mt-20">
       <div className="flex max-w-[980px] flex-col items-center gap-6 retro-theme relative">
         <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-pixel font-bold leading-tight tracking-wider text-accent-foreground text-center z-10">
           Propuestas de Agroturismo
