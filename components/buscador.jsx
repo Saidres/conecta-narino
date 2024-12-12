@@ -25,7 +25,7 @@ export default function Buscador() {
             sequence={[
               "Propuestas de Agroturismo",
               1000,
-              "Explora las mejores experiencias de agroturismo en Colombia",
+              "Explora las mejores experiencias de agroturismo en Nariño",
               1000,
             ]}
             wrapper="span"

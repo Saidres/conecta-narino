@@ -51,7 +51,7 @@ export default function IndexPage() {
               text-white 
               text-center
               animate-subtle-float">
-              Agroturismo en Colombia: Vive la naturaleza y la cultura local
+              Agroturismo en Nariño: Vive la naturaleza y la cultura local
             </h1>
             
             <Buscador/>

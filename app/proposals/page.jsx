@@ -72,7 +72,7 @@ export default function ProposalsPage() {
           Propuestas de Agroturismo
         </h1>
         <p className="text-lg md:text-xl text-accent-foreground mt-4">
-          Explora las mejores experiencias de agroturismo en Colombia
+          Explora las mejores experiencias de agroturismo en Nariño
         </p>
       </motion.div>
 
