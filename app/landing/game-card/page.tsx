@@ -13,9 +13,9 @@ export default function ActivityCard() {
       <MagicContainer
         className="mt-20 flex h-auto w-full flex-wrap justify-center gap-10 px-14 pb-16 md:mt-28 lg:mt-28"
       >
-        {/** Cr 28 _#17 39 centro piso edifisio tabarue **/}
+        
         {[{
-          title: "Serendismo",
+          title: "Senderismo",
           image: "/images/volcan-galeras.jpg"
         }, {
           title: "Cultura",
@@ -26,7 +26,7 @@ export default function ActivityCard() {
         }, {
           title: "Artesanía",
           image: "/images/nevados.jpeg"
-        }, {
+        }, {  
           title: "Relajación",
           image: "/images/cumbal.jpg"
         }, {
