@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Retro",
+  name: "Conecta Nariño",
   description:
     "Beautifully designed components built with Radix UI and Tailwind CSS.",
   mainNav: [
