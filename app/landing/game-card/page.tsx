@@ -10,42 +10,33 @@ export default function ActivityCard() {
         Explora las mejores actividades y lugares turísticos que Nariño tiene para ofrecer 🎮
       </p>
 
-      <MagicContainer
-        className="mt-20 flex h-auto w-full flex-wrap justify-center gap-10 px-14 pb-16 md:mt-28 lg:mt-28"
-      >
-        
-        {[{
-          title: "Senderismo",
-          image: "/images/volcan-galeras.jpg"
-        }, {
-          title: "Cultura",
-          image: "/images/laguna.jpeg"
-        }, {
-          title: "Gastronomia",
-          image: "/images/papa.jpeg"
-        }, {
-          title: "Artesanía",
-          image: "/images/nevados.jpeg"
-        }, {  
-          title: "Relajación",
-          image: "/images/cumbal.jpg"
-        }, {
-          title: "Festividades",
-          image: "/images/ipiales.jpeg"
-        }].map(({ title, image }, index) => (
-          <MagicCard 
+      <MagicContainer className="mt-20 flex h-auto w-full flex-wrap justify-center gap-10 px-14 pb-16 md:mt-28 lg:mt-28">
+        {[
+          { title: "Senderismo", image: "/images/volcan-galeras.jpg", href: "/login" },
+          { title: "Cultura", image: "/images/laguna.jpeg", href: "/login" },
+          { title: "Gastronomía", image: "/images/papa.jpeg", href: "/login" },
+          { title: "Artesanía", image: "/images/nevados.jpeg", href: "/login"},
+          { title: "Relajación", image: "/images/cumbal.jpg", href: "/login"},
+          { title: "Festividades", image: "/images/ipiales.jpeg", href: "/login"}
+        ].map(({ title, image, href }, index) => (
+          <a
             key={index}
-            className="relative flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden shadow-lg"
+            href={href || "#"} // Si no hay `href`, usa "#" como enlace predeterminado.
+            className={`relative flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden shadow-lg ${
+              href ? "hover:underline" : ""
+            }`}
           >
-            <div
-              className="absolute inset-0 h-full w-full bg-cover bg-center"
-              style={{ backgroundImage: `url('${image}')` }}
-            />
-            <div className="absolute inset-0 h-full w-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.4),rgba(255,255,255,0))]" />
-            <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200 relative">
-              {title}
-            </p>
-          </MagicCard>
+            <MagicCard>
+              <div
+                className="absolute inset-0 h-full w-full bg-cover bg-center"
+                style={{ backgroundImage: `url('${image}')` }}
+              />
+              <div className="absolute inset-0 h-full w-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.4),rgba(255,255,255,0))]" />
+              <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200 relative">
+                {title}
+              </p>
+            </MagicCard>
+          </a>
         ))}
       </MagicContainer>
     </div>
