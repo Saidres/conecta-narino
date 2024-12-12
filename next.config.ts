@@ -5,7 +5,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [{
       protocol: "https",
       hostname: "picsum.photos"
+      
     }]
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
   }
 };
 

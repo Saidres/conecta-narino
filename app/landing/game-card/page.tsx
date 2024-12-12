@@ -22,7 +22,7 @@ export default function ActivityCard() {
           <a
             key={index}
             href={href || "#"} // Si no hay `href`, usa "#" como enlace predeterminado.
-            className={`relative flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden shadow-lg ${
+            className={`rounded-lg relative flex w-full sm:w-4/5 md:w-1/4 lg:w-1/5 cursor-pointer flex-col items-center justify-center overflow-hidden shadow-lg ${
               href ? "hover:underline" : ""
             }`}
           >
@@ -32,7 +32,7 @@ export default function ActivityCard() {
                 style={{ backgroundImage: `url('${image}')` }}
               />
               <div className="absolute inset-0 h-full w-full bg-[radial-gradient(circle_at_50%_120%,rgba(0,128,0,0.4),rgba(255,255,255,0))]" />
-              <p className="z-10 whitespace-nowrap text-4xl font-medium text-white dark:text-gray-200 relative">
+              <p className="z-10 whitespace-nowrap text-3xl font-medium text-white dark:text-gray-200 relative">
                 {title}
               </p>
             </MagicCard>
