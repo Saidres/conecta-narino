@@ -11,40 +11,47 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
+import { TypeAnimation } from "react-type-animation";
 
-export default function ProposalsPage() {
+export default function Buscador() {
   const [filter, setFilter] = useState("");
   const router = useRouter();
 
   return (
-    <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10 mx-auto mt-20">
+    <section className="container grid items-center gap-6 pb-8 pt-6 mx-auto mt-24"> 
       <div className="flex max-w-[980px] flex-col items-center gap-6 retro-theme relative">
-        <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-pixel font-bold leading-tight tracking-wider text-accent-foreground text-center z-10">
-          Propuestas de Agroturismo
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-pixel font-bold leading-tight tracking-wider text-white text-center z-10">
+          <TypeAnimation
+            sequence={[
+              "Propuestas de Agroturismo",
+              1000,
+              "Explora las mejores experiencias de agroturismo en Colombia",
+              1000,
+            ]}
+            wrapper="span"
+            speed={50}
+            style={{ fontSize: "0.5em", display: "inline-block" }}
+          />
         </h1>
-        <p className="max-w-[700px] text-lg sm:text-xl text-accent-foreground text-center z-10">
-          Explora las mejores experiencias de agroturismo en Colombia
-        </p>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-        <Input
-          placeholder="Buscar propuestas..."
-          className="max-w-sm"
-          value={searchTerm}
-        />
+        <Input placeholder="Buscar propuestas..." className="max-w-sm text-black" />
         <Select value={filter} onValueChange={setFilter}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filtrar por..." />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="region">Región</SelectItem>
-            <SelectItem value="activity">Actividad</SelectItem>
-            <SelectItem value="price">Precio</SelectItem>
-          </SelectContent>
+            <SelectTrigger className="w-[180px] text-black">
+                <SelectValue placeholder="Filtrar por..." />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="region" className="text-black">Región</SelectItem>
+                <SelectItem value="activity" className="text-black">Actividad</SelectItem>
+                <SelectItem value="price" className="text-black">Precio</SelectItem>
+            </SelectContent>
         </Select>
-        <Button onClick={() => router.push('/login')} variant="default">Buscar</Button>
+        <Button onClick={() => router.push("/login")} variant="default" className="text-black">
+            Buscar
+        </Button>
       </div>
+
     </section>
   );
 }
