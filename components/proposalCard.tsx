@@ -1,43 +1,100 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ChevronDown, ChevronUp } from 'lucide-react'
-import Image from 'next/image'
-import dynamic from 'next/dynamic'
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { ActividadService, ProductorService } from "../service/services";
 
-const Map = dynamic(() => import('./map'), { ssr: false })
+const Map = dynamic(() => import('./map'), { ssr: false });
 
 interface Activity {
-  Calificación: number;
+  Calificacion: number;
   Etiquetas: string[];
   Itinerario: string;
-  Descripción: string;
+  Descripcion: string;
   Fotos: string[];
+  ProductorID: string; // Nuevo atributo para enlazar con Productor
 }
 
 interface ProposalCardProps {
   id: string;
-  Descripción: string;
-  Actividades: Activity[];
+  Descripcion: string;
+  Actividades: string[]; // IDs de actividades
   AgenteTuristicoID: string;
   Fotos: string[];
-  Calificación: number;
+  Calificacion: number;
 }
 
 export default function ProposalCard(props: ProposalCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [isLoadingActivities, setIsLoadingActivities] = useState(false);
+  const [activitiesError, setActivitiesError] = useState<string | null>(null);
+  const [producerLocation, setProducerLocation] = useState<[number, number] | null>(null);
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
 
-  const toggleExpand = () => setIsExpanded(!isExpanded);
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
-  const actividad = props.Actividades[0]; // Tomar la primera actividad del array
+  const fetchActivities = async () => {
+    if (activities.length > 0 || isLoadingActivities) return; // Evitar múltiples llamadas
+    setIsLoadingActivities(true);
+    setActivitiesError(null);
 
-  // Coordenadas de ejemplo para el mapa (reemplaza con las coordenadas reales)
-  const position: [number, number] = [4.6097, -74.0817] // Bogotá, Colombia
+    try {
+      const fetchedActivities = await Promise.all(
+        props.Actividades.map(async (id) => {
+          return await ActividadService.readById(id); // Obtener datos de actividades
+        })
+      );
+      setActivities(fetchedActivities);
+    } catch (error) {
+      console.error('Error fetching activities:', error);
+      setActivitiesError('No se pudieron cargar las actividades.');
+    } finally {
+      setIsLoadingActivities(false);
+    }
+  };
+
+  const fetchProducerLocation = async () => {
+    if (producerLocation || isLoadingLocation || !activities.length) return; // Evitar llamadas redundantes
+    setIsLoadingLocation(true);
+
+    try {
+      const producerIds = activities.map((activity) => activity.ProductorID);
+      console.log(producerIds);
+      const uniqueProducerIds = [...new Set(producerIds)];
+
+      // Obtener datos del primer productor (puedes ajustar si hay múltiples productores)
+      const producer = await ProductorService.readById(uniqueProducerIds[0]);
+      if (producer && producer.Ubicacion) {
+        setProducerLocation([producer.Ubicacion.latitud, producer.Ubicacion.longitud]);
+      }
+    } catch (error) {
+      console.error('Error fetching producer location:', error);
+    } finally {
+      setIsLoadingLocation(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isExpanded) {
+      fetchActivities();
+    }
+  }, [isExpanded]);
+  
+  useEffect(() => {
+    if (isExpanded && activities.length > 0) {
+      fetchProducerLocation();
+    }
+  }, [isExpanded, activities]);
 
   return (
-    <Card 
+    <Card
       className={`w-full overflow-hidden transition-all duration-300 ease-in-out cursor-pointer ${
         isExpanded ? 'shadow-lg' : 'shadow'
       }`}
@@ -54,48 +111,59 @@ export default function ProposalCard(props: ProposalCardProps) {
       aria-expanded={isExpanded}
     >
       <CardHeader>
-        <CardTitle className="font-pixel text-2xl">Propuesta {props.Descripción}</CardTitle>
-        <CardDescription className="text-lg">Calificación: {props.Calificación} ★</CardDescription>
+        <CardTitle className="font-pixel text-2xl">Propuesta {props.Descripcion}</CardTitle>
+        <CardDescription className="text-lg">Calificación: {props.Calificacion} ★</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4 relative">
         <div className="relative w-full h-60">
           <Image
-            src={`/${props.Fotos[0]}`} // Primera foto del array de Fotos
+            src={props.Fotos[0]} // Primera foto del array de Fotos
             alt="Imagen de la propuesta"
             layout="fill"
             objectFit="cover"
             className="rounded-md"
           />
-          <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background to-transparent h-20 transition-opacity duration-300 ${
-            isExpanded ? 'opacity-0' : 'opacity-90'
-          }`} />
         </div>
-        <div className={`transition-all duration-300 ease-in-out ${
-          isExpanded ? 'opacity-100 max-h-[500px]' : 'opacity-0 max-h-0'
-        } overflow-hidden`}>
+        <div
+          className={`transition-all duration-300 ease-in-out ${
+            isExpanded ? 'opacity-100 max-h-[500px]' : 'opacity-0 max-h-0'
+          } overflow-hidden`}
+        >
           <div className="flex">
             <div className="flex-1 pr-4">
-              <p className="text-accent-foreground text-lg mb-4">
-                {props.Descripción}
-              </p>
+              <p className="text-accent-foreground text-lg mb-4">{props.Descripcion}</p>
               <div>
-                <h3 className="text-xl font-bold mb-2">Itinerario:</h3>
-                <p>{actividad.Itinerario}</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mt-4 mb-2">Actividades:</h3>
-                <p>{actividad.Descripción}</p>
-              </div>
-              <div className="flex flex-wrap gap-2 mt-4">
-                {actividad.Etiquetas.map((tag: string, index: number) => (
-                  <span key={index} className="bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm">
-                    {tag}
-                  </span>
-                ))}
+                <h3 className="text-xl font-bold mb-2">Actividades:</h3>
+                {isLoadingActivities ? (
+                  <p className="text-center h-16 flex items-center justify-center">Cargando actividades...</p>
+                ) : activitiesError ? (
+                  <p className="text-center text-red-500 h-16 flex items-center justify-center">{activitiesError}</p>
+                ) : (
+                  activities.map((activity, index) => (
+                    <div key={index} className="mb-4">
+                      <h4 className="text-lg font-semibold">{activity.Descripcion}</h4>
+                      <p>{activity.Itinerario}</p>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {activity.Etiquetas.map((tag, idx) => (
+                          <span
+                            key={idx}
+                            className="bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
             <div className="w-1/3 h-64">
-              {isExpanded && <Map position={position} />}
+              {isExpanded && producerLocation ? (
+                <Map key={producerLocation?.toString()} position={producerLocation} />
+              ) : (
+                <div className="bg-gray-200 w-full h-full rounded-md animate-pulse" />
+              )}
             </div>
           </div>
         </div>
@@ -105,7 +173,7 @@ export default function ProposalCard(props: ProposalCardProps) {
           <p className="font-bold text-2xl">Desde $XXX.XXX COP</p>
           <p className="text-sm text-muted-foreground">por persona</p>
         </div>
-        <Button 
+        <Button
           variant="ghost"
           size="sm"
           onClick={(e) => {
@@ -131,4 +199,3 @@ export default function ProposalCard(props: ProposalCardProps) {
     </Card>
   );
 }
-

@@ -67,11 +67,11 @@ const CrudService = (collectionName) => ({
 });
 
 // Servicios específicos para cada colección
-export const ProductorService = CrudService("productores");
-export const ProductoService = CrudService("productos");
+export const ProductorService = CrudService("Productores");
+export const ProductoService = CrudService("Productos");
 
-export const ActividadService = CrudService("actividades");
+export const ActividadService = CrudService("Actividades");
 
-export const AgenteTuristicoService = CrudService("agentesTuristicos");
-export const PropuestaService = CrudService("propuestas");
-export const TuristaService = CrudService("turistas");
+export const AgenteTuristicoService = CrudService("AgentesTuristicos");
+export const PropuestaService = CrudService("Propuestas");
+export const TuristaService = CrudService("Turistas");
