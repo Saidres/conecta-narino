@@ -21,10 +21,10 @@ export function SiteHeader() {
               <div
                 className={buttonVariants({
                   size: "icon",
-                  variant: "ghost",
+                  variant: "ghost"                  
                 })}
               >
-                <Icons.menu className="h-5 w-5 fill-current" />
+                <Icons.menu className="h-5 w-5 fill-current text-spring-green-700" />
                 <span className="sr-only">Menu</span>
               </div>
             </button>

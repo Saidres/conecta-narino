@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
-
+import Script from 'next/script'
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -53,6 +53,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </div>
             <TailwindIndicator />
           </ThemeProvider>
+          <Script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></Script>
+          <Script src="https://files.bpcontent.cloud/2024/12/12/02/20241212021003-7H321CGC.js"></Script>    
         </body>
       </html>
     </>
