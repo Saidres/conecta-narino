@@ -93,7 +93,7 @@ export default function Login() {
                     id="email-address"
                     type="email"
                     autoComplete="email"
-                    {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' } })}
+                    {...register('email', { required: 'El correo es requerido', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' } })}
                     className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-spring-green-500 focus:border-spring-green-500 focus:z-10 sm:text-sm"
                     placeholder="Correo electrónico"
                   />
@@ -111,7 +111,7 @@ export default function Login() {
                     id="password"
                     type="password"
                     autoComplete="current-password"
-                    {...register('password', { required: 'Password is required', minLength: { value: 6, message: 'Password must be at least 6 characters' } })}
+                    {...register('password', { required: 'La contraseña es requerida', minLength: { value: 6, message: 'Password must be at least 6 characters' } })}
                     className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-spring-green-500 focus:border-spring-green-500 focus:z-10 sm:text-sm"
                     placeholder="Contraseña"
                   />
@@ -155,13 +155,7 @@ export default function Login() {
                 disabled={isLoading}
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-spring-green-600 hover:bg-spring-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-spring-green-500"
               >
-                {isLoading ? (
-                  <Loader2 className="animate-spin h-5 w-5 mr-3" />
-                ) : (
-                  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                    <User className="h-5 w-5 text-spring-green-500 group-hover:text-spring-green-400" aria-hidden="true" />
-                  </span>
-                )}
+                
                 Registrarme
               </motion.button>
             </div>
