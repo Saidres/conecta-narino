@@ -166,3 +166,7 @@
 .animation-delay-600 {
   animation-delay: 0.6s;
 }
+
+nextjs-portal {
+  display: none;
+  }

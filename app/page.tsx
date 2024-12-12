@@ -61,7 +61,7 @@ export default function IndexPage() {
 
       {/* Rest of the page content */}
       <section className="container relative z-10 justify-items-center grid items-center gap-6 pb-8 pt-6 md:py-10 mx-auto justify-center mt-20">
-        <div className="pt-20 flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-y-0 lg:space-x-8">
+        <div className="pt-20 flex flex-col lg:flex-row justify-center rounded-sm items-center space-y-8 lg:space-y-0 lg:space-x-8">
             <GameCard />
         </div>
         
